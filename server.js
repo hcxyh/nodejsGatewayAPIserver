@@ -1,20 +1,20 @@
 #!/bin/env node
 
-var express = require('express');
-var fs = require('fs');
-var React = require('react');
-var ReactDOMServer = require('react-dom/server');
-var App = require('./source/Components/Application.react.js');
+
+import express from 'express'
+import fs from 'fs'
+import React from 'react'
+import App from './source/Components/Application.react.js'
 
 
 //local host only example
-var ip_addr = '127.0.0.1';
-var port = '8080';
+const ip_addr = '127.0.0.1';
+const port = '8080';
 
-var server = function() {
+const server = function() {
 
   //  Scope.
-  var self = this;
+  const self = this;
 
 
   self.setupVariables = function() {
@@ -168,6 +168,6 @@ var server = function() {
 /**
  *  main():  Main code.
  */
-var app = new server();
+let app = new server();
 app.initialize();
 app.start();
