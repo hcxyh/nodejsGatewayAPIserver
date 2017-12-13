@@ -102,15 +102,23 @@ const server = function() {
   self.createRoutes = function () {
     self.routes = {}
     self.routes.gets = {}
-    self.routes.puts = {}
+    self.routes.posts = {}
 
     self.routes.gets['/'] = function (req, res) {
       res.setHeader('Content-Type', 'text/html')
       res.send(self.cache_get('index.html'))
     }
 
-    self.routes.puts['elasticProxy'] = function () {
-      console.log('placeholder')
+    self.routes.posts['elasticProxy'] = function (req, res) {
+      console.log('ES placeholder')
+      res.setHeader('Content-Type', 'text/html')
+      res.send('ES placeholder')
+    }
+
+    self.routes.posts['SQLProxy'] = function (req, res) {
+      console.log('SQL placeholder')
+      res.setHeader('Content-Type', 'text/html')
+      res.send('SQL placeholder')
     }
   } // end of createRoutes
 
@@ -128,8 +136,11 @@ const server = function() {
     self.app.set('view engine', 'ejs')
 
     //  Add handlers for the app (from the routes).
-    for (var r in self.routes.gets) {
-      self.app.get(r, self.routes[r])
+    for (var g in self.routes.gets) {
+      self.app.get(g, self.routes[g])
+    }
+    for (var p in self.routes.posts) {
+      self.app.post(p, self.routes[p])
     }
   }
 
