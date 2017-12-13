@@ -2,12 +2,8 @@
 import express from 'express'
 import fs from 'fs'
 import path from 'path'
-// import React from 'react'
-// import App from './source/Components/Application.react.js'
-
-// local host only example
-// const ipAddr = '127.0.0.1'
-// const port = '8080'
+import esRoutes from './elastic/routes'
+import sqlRoutes from './SQLserver/routes'
 
 const Server = function () {
   //  Scope.
@@ -86,6 +82,7 @@ const Server = function () {
    *  Create the routing table entries + handlers for the application.
    */
   self.createRoutes = function () {
+    // local routes
     self.routes = {}
     self.routes.gets = {}
     self.routes.posts = {}
@@ -93,30 +90,6 @@ const Server = function () {
     self.routes.gets['/'] = function (req, res) {
       res.setHeader('Content-Type', 'text/html')
       res.send(self.cache_get('index.html'))
-    }
-
-    self.routes.gets['/elasticProxy'] = function (req, res) {
-      console.log('ES placeholder docs')
-      res.setHeader('Content-Type', 'text/html')
-      res.send('ES placeholder docs')
-    }
-
-    self.routes.gets['/SQLProxy'] = function (req, res) {
-      console.log('SQL placeholder docs')
-      res.setHeader('Content-Type', 'text/html')
-      res.send('SQL placeholder docs')
-    }
-
-    self.routes.posts['/elasticProxy'] = function (req, res) {
-      console.log('ES placeholder post')
-      res.setHeader('Content-Type', 'text/html')
-      res.send('ES placeholder post')
-    }
-
-    self.routes.posts['/SQLProxy'] = function (req, res) {
-      console.log('SQL placeholder post')
-      res.setHeader('Content-Type', 'text/html')
-      res.send('SQL placeholder post')
     }
   } // end of createRoutes
 
@@ -139,6 +112,18 @@ const Server = function () {
     }
     for (var p in self.routes.posts) {
       self.app.post(p, self.routes.posts[p])
+    }
+    for (var eg in esRoutes.gets) {
+      self.app.get(eg, esRoutes.gets[eg])
+    }
+    for (var ep in esRoutes.gets) {
+      self.app.post(ep, esRoutes.posts[ep])
+    }
+    for (var sg in sqlRoutes.gets) {
+      self.app.get(sg, sqlRoutes.gets[sg])
+    }
+    for (var sp in sqlRoutes.gets) {
+      self.app.post(sp, sqlRoutes.posts[sp])
     }
   }
 
