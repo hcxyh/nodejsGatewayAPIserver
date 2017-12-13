@@ -20,6 +20,7 @@
     "cookie-parser": "*",
     "debug": "^3.1.0",
     "ejs": "*",
+    "elasticsearch": "^14.0.0",
     "envify": "^4.1.0",
     "express": "*",
     "flux": "^3.1.3",
