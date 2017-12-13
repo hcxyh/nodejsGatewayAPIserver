@@ -3,6 +3,7 @@
 
 import express from 'express'
 import fs from 'fs'
+import path from 'path'
 import React from 'react'
 import App from './source/Components/Application.react.js'
 
@@ -98,44 +99,39 @@ const server = function() {
   /**
    *  Create the routing table entries + handlers for the application.
    */
-  self.createRoutes = function() {
-    self.routes = {};
+  self.createRoutes = function () {
+    self.routes = {}
+    self.routes.gets = {}
+    self.routes.puts = {}
 
-    self.routes['/'] = function(req, res) {
-      res.setHeader('Content-Type', 'text/html');
-      res.send(self.cache_get('index.html'));
-    };
+    self.routes.gets['/'] = function (req, res) {
+      res.setHeader('Content-Type', 'text/html')
+      res.send(self.cache_get('index.html'))
+    }
 
-    // self.routes['/isomorphic'] = function(req, res) {
-    //   console.log("Fetching isomorphic index page.")
-    //   var reactHtml = ReactDOMServer.renderToString(<App />);
-    //   res.render('index.ejs', {reactOutput: reactHtml});
-    // };
-
-
-
-  };
-
+    self.routes.puts['elasticProxy'] = function () {
+      console.log('placeholder')
+    }
+  } // end of createRoutes
 
   /**
    *  Initialize the server (express) and create the routes and register
    *  the handlers.
    */
-  self.initializeServer = function() {
-    self.createRoutes();
-    self.app = express();
-    self.app.use(express.static('public'));
-    self.app.use('/', express.static(__dirname + '/build'));
-    self.app.use('/stylesheets', express.static(__dirname + '/public/stylesheets'));
+  self.initializeServer = function () {
+    self.createRoutes()
+    self.app = express()
+    self.app.use(express.static('public'))
+    self.app.use('/', express.static(path.join(__dirname, '/build')))
+    self.app.use('/stylesheets', express.static(path.join(__dirname, '/public/stylesheets')))
 
-    self.app.set('view engine', 'ejs');
+    self.app.set('view engine', 'ejs')
 
     //  Add handlers for the app (from the routes).
-    for (var r in self.routes) {
-      self.app.get(r, self.routes[r]);
+    for (var r in self.routes.gets) {
+      self.app.get(r, self.routes[r])
     }
-  };
-
+  }
 
   /**
    *  Initializes the sample application.
