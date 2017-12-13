@@ -149,10 +149,10 @@ const server = function() {
 
     //  Add handlers for the app (from the routes).
     for (var g in self.routes.gets) {
-      self.app.get(g, self.routes[g])
+      self.app.get(g, self.routes.gets[g])
     }
     for (var p in self.routes.posts) {
-      self.app.post(p, self.routes[p])
+      self.app.post(p, self.routes.posts[p])
     }
   }
 
