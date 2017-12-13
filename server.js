@@ -109,16 +109,28 @@ const server = function() {
       res.send(self.cache_get('index.html'))
     }
 
-    self.routes.posts['elasticProxy'] = function (req, res) {
-      console.log('ES placeholder')
+    self.routes.gets['/elasticProxy'] = function (req, res) {
+      console.log('ES placeholder docs')
       res.setHeader('Content-Type', 'text/html')
-      res.send('ES placeholder')
+      res.send('ES placeholder docs')
     }
 
-    self.routes.posts['SQLProxy'] = function (req, res) {
-      console.log('SQL placeholder')
+    self.routes.gets['/SQLProxy'] = function (req, res) {
+      console.log('SQL placeholder docs')
       res.setHeader('Content-Type', 'text/html')
-      res.send('SQL placeholder')
+      res.send('SQL placeholder docs')
+    }
+
+    self.routes.posts['/elasticProxy'] = function (req, res) {
+      console.log('ES placeholder post')
+      res.setHeader('Content-Type', 'text/html')
+      res.send('ES placeholder post')
+    }
+
+    self.routes.posts['/SQLProxy'] = function (req, res) {
+      console.log('SQL placeholder post')
+      res.setHeader('Content-Type', 'text/html')
+      res.send('SQL placeholder post')
     }
   } // end of createRoutes
 
