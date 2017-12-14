@@ -33,6 +33,7 @@
     "keymirror": "*",
     "lodash": "*",
     "morgan": "*",
+    "mssql": "^4.1.0",
     "object-assign": "*",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
