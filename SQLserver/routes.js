@@ -9,8 +9,7 @@ const test = async () => {
   try {
     console.log('Connecting to ', config.mssql)
     const pool = await sql.connect(config.mssql)
-    console.log(pool)
-    const result = await sql.query`select * `
+    const result = await sql.query`select * from sys.all_objects where type = 'U'`
     console.log(result)
   } catch (err) {
     console.error(err)
