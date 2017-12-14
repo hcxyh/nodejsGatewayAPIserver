@@ -122,7 +122,7 @@ const Server = function () {
     for (var sg in sqlRoutes.gets) {
       self.app.get(sg, sqlRoutes.gets[sg])
     }
-    for (var sp in sqlRoutes.gets) {
+    for (var sp in sqlRoutes.posts) {
       self.app.post(sp, sqlRoutes.posts[sp])
     }
   }
