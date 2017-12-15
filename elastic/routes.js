@@ -18,10 +18,17 @@ const routes = {}
 routes.gets = {}
 routes.posts = {}
 
-routes.gets['/esindices'] = function (req, res) {
-  console.log('ES placeholder docs')
-  res.setHeader('Content-Type', 'text/html')
-  res.send('ES placeholder docs')
+routes.gets['/esproxy'] = function (req, res) {
+  client.search(req.body.query)
+  .then(function (result) {
+    var hits = result.hits.hits
+    res.setHeader('Content-Type', 'text/html')
+    res.send(hits)
+  }, function (error) {
+    console.trace(error.message)
+    res.setHeader('Content-Type', 'text/html')
+    res.send(error)
+  })
 }
 
 routes.gets['/elasticProxy'] = function (req, res) {
