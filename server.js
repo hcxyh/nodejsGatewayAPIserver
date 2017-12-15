@@ -2,6 +2,7 @@
 import express from 'express'
 import fs from 'fs'
 import path from 'path'
+import bodyParser from 'body-parser'
 import esRoutes from './elastic/routes'
 import sqlRoutes from './SQLserver/routes'
 
@@ -101,6 +102,7 @@ const Server = function () {
     self.createRoutes()
     self.app = express()
     self.app.use(express.static('public'))
+    self.app.use(bodyParser.json())
     self.app.use('/', express.static(path.join(__dirname, '/build')))
     self.app.use('/stylesheets', express.static(path.join(__dirname, '/public/stylesheets')))
 
