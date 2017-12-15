@@ -115,12 +115,14 @@ const Server = function () {
     for (var p in self.routes.posts) {
       self.app.post(p, self.routes.posts[p])
     }
+    // elasticsearch
     for (var eg in esRoutes.gets) {
       self.app.get(eg, esRoutes.gets[eg])
     }
-    for (var ep in esRoutes.gets) {
+    for (var ep in esRoutes.posts) {
       self.app.post(ep, esRoutes.posts[ep])
     }
+    // msql server
     for (var sg in sqlRoutes.gets) {
       self.app.get(sg, sqlRoutes.gets[sg])
     }

@@ -17,12 +17,15 @@ const queryInterface = async (query, callback) => {
 }
 
 // connection tests
-console.log('\nTesting connection:\n')
 queryInterface('select * from sys.all_objects where type = \'U\'', function (err, result) {
-  console.error(err)
-  for (var i = 0; i < result.recordsets[0].length; i++) {
-    console.log(result.recordsets[0][i].name)
+  if (err) {
+    console.error(err)
+  } else {
+    console.log("All is well with mssql")
   }
+  // for (var i = 0; i < result.recordsets[0].length; i++) {
+  //   console.log(result.recordsets[0][i].name)
+  // }
   sql.close()
 })
 
