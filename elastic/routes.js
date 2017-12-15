@@ -18,8 +18,17 @@ const routes = {}
 routes.gets = {}
 routes.posts = {}
 
-routes.gets['/esproxy'] = function (req, res) {
-  client.search(req.body.query)
+
+
+routes.gets['/elasticProxy'] = function (req, res) {
+  console.log('ES placeholder docs')
+  res.setHeader('Content-Type', 'text/html')
+  res.send('ES placeholder docs')
+}
+
+routes.posts['/elasticProxy'] = function (req, res) {
+  const query = req.body
+  client.search(query)
   .then(function (result) {
     var hits = result.hits.hits
     res.setHeader('Content-Type', 'text/html')
@@ -29,18 +38,6 @@ routes.gets['/esproxy'] = function (req, res) {
     res.setHeader('Content-Type', 'text/html')
     res.send(error)
   })
-}
-
-routes.gets['/elasticProxy'] = function (req, res) {
-  console.log('ES placeholder docs')
-  res.setHeader('Content-Type', 'text/html')
-  res.send('ES placeholder docs')
-}
-
-routes.posts['/elasticProxy'] = function (req, res) {
-  console.log('ES placeholder post')
-  res.setHeader('Content-Type', 'text/html')
-  res.send('ES placeholder post')
 }
 
 export default routes
